@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elkap Barbershop - Modern Barbershop Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            width: 120px;
+            height: 50px;
+            background: #2d5f3f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: #2d5f3f;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 4rem;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #4a4a4a;
+            line-height: 1.8;
+            max-width: 500px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 500px;
+            background: #c0c0c0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        /* Service Section */
+        .service {
+            padding: 6rem 5%;
+            background: #ffffff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 3rem;
+        }
+
+        .service-list {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 3rem;
+        }
+
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.8rem 0;
+            border-bottom: 1px solid #d0d0d0;
+        }
+
+        .service-item:last-child {
+            border-bottom: none;
+        }
+
+        .service-item:hover {
+            background: rgba(45, 95, 63, 0.05);
+            padding-left: 1rem;
+            padding-right: 1rem;
+            margin: 0 -1rem;
+            border-radius: 8px;
+        }
+
+        .service-name {
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+
+        .service-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-left: 0.5rem;
+        }
+
+        .service-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            white-space: nowrap;
+        }
+
+        /* Location Section */
+        .location {
+            padding: 6rem 5%;
+            background: #f5f5f5;
+        }
+
+        .location-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .tab-btn {
+            padding: 1rem 2.5rem;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: #4a4a4a;
+        }
+
+        .tab-btn.active {
+            background: #2d5f3f;
+            color: white;
+            border-color: #2d5f3f;
+        }
+
+        .location-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .location-item {
+            display: none;
+        }
+
+        .location-item.active {
+            display: block;
+        }
+
+        .carousel-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .carousel {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-photo {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #c0c0c0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-name {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-btn {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .carousel-btn:hover {
+            background: #2d5f3f;
+            color: white;
+            border-color: #2d5f3f;
+        }
+
+        .map-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: #2d5f3f;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .map-btn:hover {
+            background: #234a31;
+            transform: translateY(-2px);
+        }
+
+        /* Book Section */
+        .book {
+            padding: 6rem 5%;
+            background: #2d5f3f;
+            text-align: center;
+            color: white;
+        }
+
+        .book h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .book p {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 1.2rem 3rem;
+            background: white;
+            color: #2d5f3f;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .cta-btn.secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        /* Career Section */
+        .career {
+            padding: 6rem 5%;
+            background: white;
+            text-align: center;
+        }
+
+        .career-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .career p {
+            font-size: 1.1rem;
+            color: #4a4a4a;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: #2d5f3f;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .apply-btn:hover {
+            background: #234a31;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+    background: #1a1a1a;
+    color: white;
+    padding: 0;  /* ← Hilangkan padding samping */
+}
+
+          .footer-image {
+    width: 100%;
+    height: 300px;
+    background: #3a3a3a;
+    border-radius: 0;  /* ← Hilangkan border radius */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    margin-bottom: 0;  /* ← Hilangkan margin bottom */
+}
+
+.footer-text {
+    text-align: center;
+    color: #888;
+    font-size: 0.9rem;
+    padding: 2rem 5%;  /* ← Kasih padding di text aja */
+}
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .service-list {
+                padding: 1.5rem;
+            }
+
+            .service-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+                padding: 1.5rem 0;
+            }
+
+            .service-price {
+                font-size: 1.3rem;
+            }
+
+            .carousel {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .location-tabs {
+                flex-direction: column;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        
+        <img src="assets/ELKAP-TRANSPERANT-BLACK  (1).png" alt="Elkap Logo" style="height: 50px; width: auto;">
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#service">Service</a></li>
+            <li><a href="#location">Location</a></li>
+            <li><a href="#book">Book</a></li>
+            <li><a href="#career">Career</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Your Style, Our Passion</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+            </div>
+            <div class="hero-image">
+                <img src="assets/elkap front.png" alt="Elkap Barbershop" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Section -->
+    <section id="service" class="service">
+        <h2 class="section-title">Our Services</h2>
+        <div class="service-list">
+            <div class="service-item">
+                <div>
+                    <span class="service-name">HAIRCUT</span>
+                    <span class="service-note">( STARTS FROM )</span>
+                </div>
+                <div class="service-price">75K</div>
+            </div>
+            <div class="service-item">
+                <div>
+                    <span class="service-name">STUDENT HAIRCUT</span>
+                </div>
+                <div class="service-price">65K</div>
+            </div>
+            <div class="service-item">
+                <div>
+                    <span class="service-name">DOWN PERM</span>
+                </div>
+                <div class="service-price">150K</div>
+            </div>
+            <div class="service-item">
+                <div>
+                    <span class="service-name">ROOT LIFT</span>
+                </div>
+                <div class="service-price">150K</div>
+            </div>
+            <div class="service-item">
+                <div>
+                    <span class="service-name">CREATIVE PERM</span>
+                    
+                </div>
+                <div class="service-price">375K</div>
+            </div>
+            <div class="service-item">
+                <div>
+                    <span class="service-name">DESIGN PERM</span>
+                    
+                </div>
+                <div class="service-price">375K</div>
+            </div>
+            <div class="service-item">
+                <div>
+                    <span class="service-name">KERATIN & SMOOTH</span>
+                </div>
+                <div class="service-price">325K</div>
+            </div>
+            <div class="service-item">
+                <div>
+                    <span class="service-name">HIGH LIGHT COLOR</span>
+                    <span class="service-note">( STARTS FROM )</span>
+                </div>
+                <div class="service-price">400K</div>
+            </div>
+            <div class="service-item">
+                <div>
+                    <span class="service-name">CREATIVE COLOR</span>
+                    <span class="service-note">( STARTS FROM )</span>
+                </div>
+                <div class="service-price">600K</div>
+            </div>
+            <div class="service-item">
+                <div>
+                    <span class="service-name">SOFT & SMOOTH</span>
+                </div>
+                <div class="service-price">200K</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="location">
+        <h2 class="section-title">Our Locations & Team</h2>
+        
+        <div class="location-tabs">
+            <button class="tab-btn active" data-location="trunojoyo">Trunojoyo</button>
+            <button class="tab-btn" data-location="gading">Gading Fajar</button>
+            <button class="tab-btn" data-location="surabaya">Surabaya</button>
+        </div>
+
+        <div class="location-content">
+            <!-- Trunojoyo -->
+            <div class="location-item active" id="trunojoyo">
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <div class="team-member">
+                            <div class="team-photo">
+                              <img src="assets/rizki.png" alt="Rizki" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            </div>
+                            <p class="team-name">Rizki</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                              <img src="assets/dece.png" alt="Dece" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            </div>
+                            <p class="team-name">Dece</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                              <img src="assets/reno.png" alt="Reno" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            </div>
+                            <p class="team-name">Reno</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                              <img src="assets/iril.png" alt="Iril" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            </div>
+                            <p class="team-name">Iril</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                              <img src="assets/andhika.png" alt="Andhika" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            </div>
+                            <p class="team-name">Andhika</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <a href="https://maps.google.com/" target="_blank" class="map-btn">Lihat di Google Maps</a>
+                </div>
+            </div>
+
+            <!-- Gading Fajar -->
+            <div class="location-item" id="gading">
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <div class="team-member">
+                            <div class="team-photo">
+                              <img src="assets/louise.png" alt="Louise" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            </div>
+                            <p class="team-name">Louise</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                              <img src="assets/andhika.png" alt="Pepi" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            </div>
+                            <p class="team-name">Pepi</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                              <img src="assets/rizki.png" alt="Anang" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            </div>
+                            <p class="team-name">Anang</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <a href="https://maps.google.com/" target="_blank" class="map-btn">Lihat di Google Maps</a>
+                </div>
+            </div>
+
+            <!-- Surabaya -->
+            <div class="location-item" id="surabaya">
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <div class="team-member">
+                            <div class="team-photo">
+                              <img src="assets/wawa.png" alt="Wawa" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            </div>
+                            <p class="team-name">Wawa</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                              <img src="assets/louise.png" alt="Jefri" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            </div>
+                            <p class="team-name">Jefri</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <a href="https://maps.google.com/" target="_blank" class="map-btn">Lihat di Google Maps</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Section -->
+    <section id="book" class="book">
+        <h2>Ready for a Fresh Look?</h2>
+        <p>Book your appointment now and experience premium barbershop service</p>
+        <div class="cta-buttons">
+            <a href="https://setmore.com/" target="_blank" class="cta-btn">Book Now</a>
+            <a href="https://wa.me/" target="_blank" class="cta-btn secondary">WhatsApp</a>
+            <a href="https://instagram.com/" target="_blank" class="cta-btn secondary">Instagram</a>
+        </div>
+    </section>
+
+    <!-- Career Section -->
+    <section id="career" class="career">
+        <h2 class="section-title">Join Our Team</h2>
+        <div class="career-content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <a href="https://forms.google.com/" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-image">
+            <img src="assets/elkap architect.jpeg" alt="Elkap Building" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+        </div>
+        <p class="footer-text">© 2025 Elkap Barbershop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Location Tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const locationItems = document.querySelectorAll('.location-item');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const location = btn.dataset.location;
+                
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                locationItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.id === location) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        const navbar = document.querySelector('nav');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
