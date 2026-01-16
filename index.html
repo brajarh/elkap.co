@@ -1,9 +1,16 @@
-<!DOCTYPE html>
+/* Location Section */
+        .location-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #ffffff;
+        }    .career {
+                padding: 4rem 2rem;
+            }<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elkap Barbershop - Modern Barbershop Experience</title>
+    <title>Elkap Barbershop</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -24,34 +31,37 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
-            padding: 1.2rem 5%;
+            padding: 1.5rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #f0f0f0;
         }
 
-        .logo-img {
-            height: 50px;
-            width: auto;
-            z-index: 1001;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
         }
 
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 3rem;
             list-style: none;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: #1a1a1a;
-            font-weight: 500;
+            color: #666;
+            font-weight: 400;
             transition: color 0.3s;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .nav-links a:hover {
@@ -68,9 +78,8 @@
 
         .hamburger span {
             width: 25px;
-            height: 3px;
+            height: 2px;
             background: #1a1a1a;
-            border-radius: 3px;
             transition: all 0.3s;
         }
 
@@ -86,149 +95,240 @@
             transform: rotate(-45deg) translate(7px, -7px);
         }
 
-        /* Hero Section */
+        /* Hero Section - Split Screen */
         .hero {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 8rem 5% 4rem;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
-        }
-
-        .hero-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .hero-text h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-
-        .hero-text p {
-            font-size: 1.1rem;
-            color: #4a4a4a;
-            line-height: 1.8;
-            max-width: 500px;
+            grid-template-columns: 1fr 1.2fr;
+            padding-top: 80px;
         }
 
         .hero-image {
-            width: 100%;
-            height: 500px;
-            background: #c0c0c0;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            font-size: 1.2rem;
+            background: #e8e8e8;
             overflow: hidden;
         }
 
-        /* Service Section */
-        .service {
-            padding: 6rem 5%;
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 6rem;
             background: #ffffff;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
+        .hero-text h1 {
+            font-size: 5rem;
+            font-weight: 400;
             color: #1a1a1a;
-            margin-bottom: 3rem;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+
+        /* Our Story Section */
+        .story {
+            padding: 8rem 6rem;
+            background: #ffffff;
+        }
+
+        .story-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .story-title {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+        }
+
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: justify;
+            font-size: 0.95rem;
+            line-height: 1.9;
+            color: #666;
+            font-weight: 300;
+        }
+
+        .story-gallery {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            aspect-ratio: 3/4;
+            background: #e8e8e8;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: filter 0.3s;
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* Service Section - With Image Separator */
+        .service-section {
+            display: grid;
+            grid-template-columns: 1fr 400px 1fr;
+            min-height: 60vh;
+            background: #ffffff;
+            gap: 0;
+        }
+
+        .service-left {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 4rem;
+            background: #ffffff;
+        }
+
+        .service-separator {
+            background: #e8e8e8;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-separator img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: #1a1a1a;
+            letter-spacing: -1px;
+            line-height: 1.3;
+        }
+
+        .service-right {
+            background: #2d5f3f;
+            padding: 6rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .service-list {
-            max-width: 900px;
-            margin: 0 auto;
-            background: #f5f5f5;
-            border-radius: 12px;
-            padding: 3rem;
+            color: white;
         }
 
         .service-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 1.8rem 0;
-            border-bottom: 1px solid #d0d0d0;
-            transition: all 0.3s;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.85rem;
         }
 
         .service-item:last-child {
             border-bottom: none;
         }
 
-        .service-item:hover {
-            background: rgba(45, 95, 63, 0.05);
-            padding-left: 1rem;
-            padding-right: 1rem;
-            margin: 0 -1rem;
-            border-radius: 8px;
-        }
-
         .service-name {
-            font-size: 1.1rem;
-            color: #1a1a1a;
-            font-weight: 500;
-        }
-
-        .service-note {
-            font-size: 0.85rem;
-            color: #666;
-            margin-left: 0.5rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .service-price {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            white-space: nowrap;
+            font-weight: 500;
         }
 
         /* Location Section */
-        .location {
-            padding: 6rem 5%;
-            background: #f5f5f5;
+        .location-section {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            background: #ffffff;
+        }
+
+        .location-left {
+            background: #2d5f3f;
+            padding: 4rem 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+        }
+
+        .location-title {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
         }
 
         .location-tabs {
             display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
         }
 
         .tab-btn {
-            padding: 1rem 2.5rem;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.7);
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: 0.85rem;
+            font-weight: 400;
             transition: all 0.3s;
-            color: #4a4a4a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: left;
         }
 
         .tab-btn.active {
-            background: #2d5f3f;
-            color: white;
-            border-color: #2d5f3f;
+            background: white;
+            color: #2d5f3f;
+            border-color: white;
         }
 
-        .location-content {
-            max-width: 1200px;
-            margin: 0 auto;
+        .map-btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: white;
+            color: #2d5f3f;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .map-btn:hover {
+            background: rgba(255,255,255,0.9);
+        }
+
+        .location-right {
+            padding: 4rem;
         }
 
         .location-item {
@@ -239,16 +339,24 @@
             display: block;
         }
 
-        .carousel-container {
-            position: relative;
-            margin-bottom: 2rem;
+        .location-image {
+            width: 100%;
+            height: 300px;
+            background: #e8e8e8;
+            margin-bottom: 3rem;
+            overflow: hidden;
         }
 
-        .carousel {
+        .location-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin: 2rem 0;
+            gap: 2rem;
         }
 
         .team-member {
@@ -258,92 +366,139 @@
         .team-photo {
             width: 100%;
             aspect-ratio: 1;
-            background: #c0c0c0;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            font-size: 0.9rem;
+            background: #e8e8e8;
             margin-bottom: 1rem;
             overflow: hidden;
         }
 
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+        }
+
         .team-name {
-            font-weight: 600;
+            font-size: 0.9rem;
+            font-weight: 500;
             color: #1a1a1a;
         }
 
-        .map-btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: #2d5f3f;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s;
-            margin-top: 1rem;
+        /* Booking Section */
+        .booking-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #ffffff;
+            padding: 6rem 0;
         }
 
-        .map-btn:hover {
-            background: #234a31;
-            transform: translateY(-2px);
+        .booking-left {
+            padding: 4rem 6rem;
         }
 
-        /* Book Section */
-        .book {
-            padding: 6rem 5%;
-            background: #2d5f3f;
-            text-align: center;
-            color: white;
-        }
-
-        .book h2 {
+        .booking-title {
             font-size: 2.5rem;
+            font-weight: 400;
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .booking-subtitle {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .booking-image {
+            width: 100%;
+            height: 100%;
+            background: #e8e8e8;
+            overflow: hidden;
+        }
+
+        .booking-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .booking-right {
+            padding: 4rem 6rem;
+        }
+
+        .booking-form {
+            max-width: 500px;
+        }
+
+        .form-group {
             margin-bottom: 1.5rem;
         }
 
-        .book p {
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
-            opacity: 0.9;
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
         }
 
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .cta-btn {
-            padding: 1.2rem 3rem;
-            background: white;
-            color: #2d5f3f;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            display: inline-block;
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .cta-btn.secondary {
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 0;
+            border: none;
+            border-bottom: 1px solid #e0e0e0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            color: #1a1a1a;
             background: transparent;
-            border: 2px solid white;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-bottom-color: #2d5f3f;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: #2d5f3f;
             color: white;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #234a31;
+        }
+
+        .form-note {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 1rem;
         }
 
         /* Career Section */
         .career {
-            padding: 6rem 5%;
-            background: white;
+            padding: 8rem 6rem;
+            background: #f9f9f9;
             text-align: center;
         }
 
@@ -352,11 +507,20 @@
             margin: 0 auto;
         }
 
+        .career-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+            letter-spacing: -1px;
+        }
+
         .career p {
-            font-size: 1.1rem;
-            color: #4a4a4a;
-            line-height: 1.8;
-            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.9;
+            margin-bottom: 3rem;
+            font-weight: 300;
         }
 
         .apply-btn {
@@ -365,45 +529,125 @@
             background: #2d5f3f;
             color: white;
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-weight: 500;
+            font-size: 0.85rem;
             transition: all 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .apply-btn:hover {
             background: #234a31;
-            transform: translateY(-3px);
         }
 
         /* Footer */
-        footer {
-            background: #1a1a1a;
+        .footer {
+            background: #2d5f3f;
             color: white;
-            padding: 0;
+            padding: 6rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 3rem;
+            letter-spacing: -1px;
         }
 
         .footer-image {
             width: 100%;
-            height: 300px;
-            background: #3a3a3a;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-            margin-bottom: 0;
+            height: 400px;
+            background: #234a31;
+            margin-bottom: 3rem;
             overflow: hidden;
         }
 
-        .footer-text {
-            text-align: center;
-            color: #888;
+        .footer-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .footer-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        .footer-col h4 {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
             font-size: 0.9rem;
-            padding: 2rem 5%;
+        }
+
+        .footer-col p {
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
         }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-text {
+                padding: 6rem 4rem;
+            }
+
+            .hero-text h1 {
+                font-size: 4rem;
+            }
+
+            .service-section {
+                grid-template-columns: 1fr;
+            }
+
+            .service-separator {
+                display: none;
+            }
+
+            .service-left {
+                padding: 4rem 2rem;
+            }
+
+            .service-right {
+                padding: 4rem 2rem;
+            }
+
+            .location-section {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .booking-section {
+                grid-template-columns: 1fr;
+            }
+
+            .story-gallery {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .hamburger {
                 display: flex;
@@ -429,71 +673,62 @@
                 right: 0;
             }
 
-            .nav-links a {
-                font-size: 1.2rem;
-            }
-
-            .hero-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding-top: 2rem;
+            .hero-text {
+                padding: 4rem 2rem;
             }
 
             .hero-text h1 {
                 font-size: 2.5rem;
             }
 
-            .hero-image {
-                height: 350px;
+            .story {
+                padding: 4rem 2rem;
             }
 
-            .service-list {
-                padding: 1.5rem;
+            .story-gallery {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .service-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.8rem;
-                padding: 1.5rem 0;
+            .service-left {
+                padding: 4rem 2rem;
             }
 
-            .service-name {
-                font-size: 1rem;
+            .service-right {
+                padding: 3rem 2rem;
             }
 
-            .service-note {
-                display: block;
-                margin-left: 0;
-                margin-top: 0.3rem;
+            .location-right {
+                padding: 2rem;
             }
 
-            .service-price {
-                font-size: 1.5rem;
-                align-self: flex-end;
-            }
-
-            .carousel {
+            .team-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
             }
 
-            .location-tabs {
-                flex-direction: column;
+            .booking-left {
+                padding: 3rem 2rem;
             }
 
-            .tab-btn {
-                padding: 0.8rem 2rem;
+            .booking-right {
+                padding: 3rem 2rem;
             }
 
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
+            .booking-title {
+                font-size: 2rem;
             }
 
-            .cta-btn {
-                width: 100%;
-                max-width: 300px;
+            .footer {
+                padding: 4rem 2rem;
+            }
+
+            .footer-title {
+                font-size: 2rem;
+            }
+
+            .footer-info {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
     </style>
@@ -501,7 +736,7 @@
 <body>
     <!-- Navbar -->
     <nav>
-        <img src="assets/ELKAP-TRANSPERANT-BLACK  (1).png" alt="Elkap Logo" class="logo-img">
+        <div class="logo">elkap.</div>
         <div class="hamburger">
             <span></span>
             <span></span>
@@ -509,7 +744,7 @@
         </div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
-            <li><a href="#service">Service</a></li>
+            <li><a href="#services">Services</a></li>
             <li><a href="#location">Location</a></li>
             <li><a href="#book">Book</a></li>
             <li><a href="#career">Career</a></li>
@@ -518,223 +753,283 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>Your Style, Our Passion</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        <div class="hero-image">
+            <img src="assets/elkap front.png" alt="Elkap Barbershop">
+        </div>
+        <div class="hero-text">
+            <h1>NUMBER 1<br>BARBER<br>IN SIDOARJO<br>CITY</h1>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="story">
+        <div class="story-header">
+            <div class="story-title">OUR STORY</div>
+        </div>
+        <div class="story-content">
+            <p>Experience premium barbering services delivered by certified professionals. With our passion in the barbering world, we form the foundations of the quality haircut and ultimate grooming experience. Having the certificate of distinction from international academies, we knew we're going to bring something new to the table. In 2015, we established our first shop in the humble neighborhood. Multiple shops then opened in the following years, bringing our signature style and expertise to more communities across the city.</p>
+        </div>
+        <div class="story-gallery">
+            <div class="gallery-item">
+                <img src="assets/rizki.png" alt="Gallery 1">
             </div>
-            <div class="hero-image">
-                <img src="assets/elkap front.png" alt="Elkap Barbershop" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+            <div class="gallery-item">
+                <img src="assets/dece.png" alt="Gallery 2">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/reno.png" alt="Gallery 3">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/iril.png" alt="Gallery 4">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/andhika.png" alt="Gallery 5">
             </div>
         </div>
     </section>
 
     <!-- Service Section -->
-    <section id="service" class="service">
-        <h2 class="section-title">Our Services</h2>
-        <div class="service-list">
-            <div class="service-item">
-                <div>
-                    <span class="service-name">HAIRCUT</span>
-                    <span class="service-note">( STARTS FROM )</span>
+    <section id="services" class="service-section">
+        <div class="service-left">
+            <h2 class="service-title">SERVICE<br>& PRICE LIST</h2>
+        </div>
+        <div class="service-separator">
+            <img src="assets/elkap front.png" alt="Separator">
+        </div>
+        <div class="service-right">
+            <div class="service-list">
+                <div class="service-item">
+                    <span class="service-name">Haircut</span>
+                    <span class="service-price">75K</span>
                 </div>
-                <div class="service-price">75K</div>
-            </div>
-            <div class="service-item">
-                <div>
-                    <span class="service-name">STUDENT HAIRCUT</span>
+                <div class="service-item">
+                    <span class="service-name">Student Haircut</span>
+                    <span class="service-price">65K</span>
                 </div>
-                <div class="service-price">65K</div>
-            </div>
-            <div class="service-item">
-                <div>
-                    <span class="service-name">DOWN PERM</span>
+                <div class="service-item">
+                    <span class="service-name">Down Perm</span>
+                    <span class="service-price">150K</span>
                 </div>
-                <div class="service-price">150K</div>
-            </div>
-            <div class="service-item">
-                <div>
-                    <span class="service-name">ROOT LIFT</span>
+                <div class="service-item">
+                    <span class="service-name">Root Lift</span>
+                    <span class="service-price">150K</span>
                 </div>
-                <div class="service-price">150K</div>
-            </div>
-            <div class="service-item">
-                <div>
-                    <span class="service-name">CREATIVE PERM</span>
+                <div class="service-item">
+                    <span class="service-name">Creative Perm</span>
+                    <span class="service-price">375K</span>
                 </div>
-                <div class="service-price">375K</div>
-            </div>
-            <div class="service-item">
-                <div>
-                    <span class="service-name">DESIGN PERM</span>
+                <div class="service-item">
+                    <span class="service-name">Design Perm</span>
+                    <span class="service-price">375K</span>
                 </div>
-                <div class="service-price">375K</div>
-            </div>
-            <div class="service-item">
-                <div>
-                    <span class="service-name">KERATIN & SMOOTH</span>
+                <div class="service-item">
+                    <span class="service-name">Keratin & Smooth</span>
+                    <span class="service-price">325K</span>
                 </div>
-                <div class="service-price">325K</div>
-            </div>
-            <div class="service-item">
-                <div>
-                    <span class="service-name">HIGH LIGHT COLOR</span>
-                    <span class="service-note">( STARTS FROM )</span>
+                <div class="service-item">
+                    <span class="service-name">High Light Color</span>
+                    <span class="service-price">400K</span>
                 </div>
-                <div class="service-price">400K</div>
-            </div>
-            <div class="service-item">
-                <div>
-                    <span class="service-name">CREATIVE COLOR</span>
-                    <span class="service-note">( STARTS FROM )</span>
+                <div class="service-item">
+                    <span class="service-name">Creative Color</span>
+                    <span class="service-price">600K</span>
                 </div>
-                <div class="service-price">600K</div>
-            </div>
-            <div class="service-item">
-                <div>
-                    <span class="service-name">SOFT & SMOOTH</span>
+                <div class="service-item">
+                    <span class="service-name">Soft & Smooth</span>
+                    <span class="service-price">200K</span>
                 </div>
-                <div class="service-price">200K</div>
             </div>
         </div>
     </section>
 
     <!-- Location Section -->
-    <section id="location" class="location">
-        <h2 class="section-title">Our Locations & Team</h2>
-        
-        <div class="location-tabs">
-            <button class="tab-btn active" data-location="trunojoyo">Trunojoyo</button>
-            <button class="tab-btn" data-location="gading">Gading Fajar</button>
-            <button class="tab-btn" data-location="surabaya">Surabaya</button>
+    <section id="location" class="location-section">
+        <div class="location-left">
+            <h2 class="location-title">TRUNOJOYO</h2>
+            <div class="location-tabs">
+                <button class="tab-btn active" data-location="trunojoyo">Trunojoyo</button>
+                <button class="tab-btn" data-location="gading">Gading Fajar</button>
+                <button class="tab-btn" data-location="surabaya">Surabaya</button>
+            </div>
+            <a href="https://maps.google.com/" target="_blank" class="map-btn">Google Maps</a>
+            <a href="https://setmore.com/" target="_blank" class="map-btn">Book Now</a>
         </div>
-
-        <div class="location-content">
+        <div class="location-right">
             <!-- Trunojoyo -->
             <div class="location-item active" id="trunojoyo">
-                <div class="carousel-container">
-                    <div class="carousel">
-                        <div class="team-member">
-                            <div class="team-photo">
-                              <img src="assets/rizki.png" alt="Rizki" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                            </div>
-                            <p class="team-name">Rizki</p>
-                        </div>
-                        <div class="team-member">
-                            <div class="team-photo">
-                              <img src="assets/dece.png" alt="Dece" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                            </div>
-                            <p class="team-name">Dece</p>
-                        </div>
-                        <div class="team-member">
-                            <div class="team-photo">
-                              <img src="assets/reno.png" alt="Reno" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                            </div>
-                            <p class="team-name">Reno</p>
-                        </div>
-                        <div class="team-member">
-                            <div class="team-photo">
-                              <img src="assets/iril.png" alt="Iril" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                            </div>
-                            <p class="team-name">Iril</p>
-                        </div>
-                        <div class="team-member">
-                            <div class="team-photo">
-                              <img src="assets/andhika.png" alt="Andhika" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                            </div>
-                            <p class="team-name">Andhika</p>
-                        </div>
-                    </div>
+                <div class="location-image">
+                    <img src="assets/elkap front.png" alt="Trunojoyo Location">
                 </div>
-                <div style="text-align: center;">
-                    <a href="https://maps.google.com/" target="_blank" class="map-btn">Lihat di Google Maps</a>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="assets/rizki.png" alt="Rizki">
+                        </div>
+                        <p class="team-name">Rizki</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="assets/dece.png" alt="Dece">
+                        </div>
+                        <p class="team-name">Dece</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="assets/reno.png" alt="Reno">
+                        </div>
+                        <p class="team-name">Reno</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="assets/iril.png" alt="Iril">
+                        </div>
+                        <p class="team-name">Iril</p>
+                    </div>
                 </div>
             </div>
 
             <!-- Gading Fajar -->
             <div class="location-item" id="gading">
-                <div class="carousel-container">
-                    <div class="carousel">
-                        <div class="team-member">
-                            <div class="team-photo">
-                              <img src="assets/louise.png" alt="Louise" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                            </div>
-                            <p class="team-name">Louise</p>
-                        </div>
-                        <div class="team-member">
-                            <div class="team-photo">
-                              <img src="assets/andhika.png" alt="Pepi" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                            </div>
-                            <p class="team-name">Pepi</p>
-                        </div>
-                        <div class="team-member">
-                            <div class="team-photo">
-                              <img src="assets/rizki.png" alt="Anang" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                            </div>
-                            <p class="team-name">Anang</p>
-                        </div>
-                    </div>
+                <div class="location-image">
+                    <img src="assets/elkap front.png" alt="Gading Fajar Location">
                 </div>
-                <div style="text-align: center;">
-                    <a href="https://maps.google.com/" target="_blank" class="map-btn">Lihat di Google Maps</a>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="assets/louise.png" alt="Louise">
+                        </div>
+                        <p class="team-name">Louise</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="assets/andhika.png" alt="Pepi">
+                        </div>
+                        <p class="team-name">Pepi</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="assets/rizki.png" alt="Anang">
+                        </div>
+                        <p class="team-name">Anang</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="assets/dece.png" alt="Budi">
+                        </div>
+                        <p class="team-name">Budi</p>
+                    </div>
                 </div>
             </div>
 
             <!-- Surabaya -->
             <div class="location-item" id="surabaya">
-                <div class="carousel-container">
-                    <div class="carousel">
-                        <div class="team-member">
-                            <div class="team-photo">
-                              <img src="assets/wawa.png" alt="Wawa" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                            </div>
-                            <p class="team-name">Wawa</p>
-                        </div>
-                        <div class="team-member">
-                            <div class="team-photo">
-                              <img src="assets/louise.png" alt="Jefri" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                            </div>
-                            <p class="team-name">Jefri</p>
-                        </div>
-                    </div>
+                <div class="location-image">
+                    <img src="assets/elkap front.png" alt="Surabaya Location">
                 </div>
-                <div style="text-align: center;">
-                    <a href="https://maps.google.com/" target="_blank" class="map-btn">Lihat di Google Maps</a>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="assets/wawa.png" alt="Wawa">
+                        </div>
+                        <p class="team-name">Wawa</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="assets/louise.png" alt="Jefri">
+                        </div>
+                        <p class="team-name">Jefri</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="assets/reno.png" alt="Andi">
+                        </div>
+                        <p class="team-name">Andi</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Book Section -->
-    <section id="book" class="book">
-        <h2>Ready for a Fresh Look?</h2>
-        <p>Book your appointment now and experience premium barbershop service</p>
-        <div class="cta-buttons">
-            <a href="https://setmore.com/" target="_blank" class="cta-btn">Book Now</a>
-            <a href="https://wa.me/" target="_blank" class="cta-btn secondary">WhatsApp</a>
-            <a href="https://instagram.com/" target="_blank" class="cta-btn secondary">Instagram</a>
+    <!-- Booking Section -->
+    <section id="book" class="booking-section">
+        <div class="booking-left">
+            <h2 class="booking-title">MAKE OUR<br>DAY SPECIAL</h2>
+            <p class="booking-subtitle">Let us know if you can celebrate your special day with us.</p>
+            <div class="booking-image" style="margin-top: 2rem; height: 300px;">
+                <img src="assets/elkap architect.jpeg" alt="Booking">
+            </div>
+        </div>
+        <div class="booking-right">
+            <form class="booking-form" onsubmit="return false;">
+                <div class="form-group">
+                    <label>Your name</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label>Are you coming?</label>
+                    <input type="text" placeholder="Absolutely, wouldn't miss it!">
+                </div>
+                <div class="form-group">
+                    <label>Safely confirm names if</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label>Let us know if you have any dietary restrictions.</label>
+                    <textarea placeholder=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Nominate a song for our playlist!</label>
+                    <input type="text" placeholder="">
+                </div>
+                <button type="submit" class="submit-btn">RSVP Now</button>
+                <p class="form-note">We can't wait to celebrate with you</p>
+            </form>
         </div>
     </section>
 
     <!-- Career Section -->
     <section id="career" class="career">
-        <h2 class="section-title">Join Our Team</h2>
         <div class="career-content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <h2 class="career-title">Join Our Team</h2>
+            <p>We're always looking for talented barbers who share our passion for excellence. Join our team and be part of a community that values craftsmanship, creativity, and professional growth. Experience a workplace where your skills are appreciated and your career can flourish.</p>
             <a href="https://forms.google.com/" target="_blank" class="apply-btn">Apply Now</a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-image">
-            <img src="assets/elkap architect.jpeg" alt="Elkap Building" style="width: 100%; height: 100%; object-fit: cover;">
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <h2 class="footer-title">EXCITED TO CELEBRATE<br>OUR DAY WITH YOU</h2>
+            <div class="footer-image">
+                <img src="assets/elkap architect.jpeg" alt="Footer">
+            </div>
+            <div class="footer-info">
+                <div class="footer-col">
+                    <h4>Moment + Alex</h4>
+                    <p>July 15th, 2025 | Our wedding</p>
+                    <p>July 16th, 2025 | Blessing ceremony</p>
+                    <p>All at Elkap HQ</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Questions? Reach out!</h4>
+                    <p>We're happy to help with</p>
+                    <p>any questions</p>
+                    <p>Email: hello@elkap.com</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Join Our Team</h4>
+                    <p>We're always looking for</p>
+                    <p>talented barbers</p>
+                    <p>Apply at: careers@elkap.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2025 Elkap Barbershop. All rights reserved.
+            </div>
         </div>
-        <p class="footer-text">© 2025 Elkap Barbershop. All rights reserved.</p>
     </footer>
 
     <script>
-        // Hamburger Menu Toggle
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
         const navItems = document.querySelectorAll('.nav-links a');
@@ -744,7 +1039,6 @@
             navLinks.classList.toggle('active');
         });
 
-        // Close menu when clicking nav item
         navItems.forEach(item => {
             item.addEventListener('click', () => {
                 hamburger.classList.remove('active');
@@ -752,7 +1046,6 @@
             });
         });
 
-        // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
                 hamburger.classList.remove('active');
@@ -760,7 +1053,6 @@
             }
         });
 
-        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -774,9 +1066,9 @@
             });
         });
 
-        // Location Tabs
         const tabBtns = document.querySelectorAll('.tab-btn');
         const locationItems = document.querySelectorAll('.location-item');
+        const locationTitle = document.querySelector('.location-title');
 
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -791,23 +1083,16 @@
                         item.classList.add('active');
                     }
                 });
+
+                // Update title based on location
+                if (location === 'trunojoyo') {
+                    locationTitle.textContent = 'TRUNOJOYO';
+                } else if (location === 'gading') {
+                    locationTitle.textContent = 'GADING FAJAR';
+                } else if (location === 'surabaya') {
+                    locationTitle.textContent = 'SURABAYA';
+                }
             });
-        });
-
-        // Navbar scroll effect
-        let lastScroll = 0;
-        const navbar = document.querySelector('nav');
-
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 100) {
-                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-            } else {
-                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
-            }
-            
-            lastScroll = currentScroll;
         });
     </script>
 </body>
