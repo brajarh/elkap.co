@@ -1,11 +1,4 @@
-/* Location Section */
-        .location-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            background: #ffffff;
-        }    .career {
-                padding: 4rem 2rem;
-            }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -31,9 +24,9 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.98);
+            background: #2d5f3f;
             backdrop-filter: blur(10px);
-            padding: 1.5rem 5%;
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -42,9 +35,21 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #1a1a1a;
+            color: white;
             letter-spacing: -0.5px;
         }
 
@@ -56,7 +61,7 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #666;
+            color: white;
             font-weight: 400;
             transition: color 0.3s;
             font-size: 0.85rem;
@@ -65,7 +70,7 @@
         }
 
         .nav-links a:hover {
-            color: #2d5f3f;
+            color: #c4d9cc;
         }
 
         .hamburger {
@@ -79,7 +84,7 @@
         .hamburger span {
             width: 25px;
             height: 2px;
-            background: #1a1a1a;
+            background: white;
             transition: all 0.3s;
         }
 
@@ -95,7 +100,55 @@
             transform: rotate(-45deg) translate(7px, -7px);
         }
 
-        /* Hero Section - Split Screen */
+        /* Floating Buttons */
+        .floating-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 999;
+        }
+
+        .floating-btn {
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            animation: float 3s ease-in-out infinite;
+            min-width: 140px;
+        }
+
+        .floating-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-book {
+            background: #2d5f3f;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: grid;
@@ -106,12 +159,19 @@
         .hero-image {
             background: #e8e8e8;
             overflow: hidden;
+            position: relative;
         }
 
         .hero-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            animation: zoomIn 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes zoomIn {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
 
         .hero-text {
@@ -128,9 +188,48 @@
             color: #1a1a1a;
             line-height: 1.1;
             letter-spacing: -2px;
+            animation: slideInRight 1s ease-out;
         }
 
-        /* Our Story Section */
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Glitch Effect for Story Title */
+        .story-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            position: relative;
+            animation: glitch 5s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% {
+                text-shadow: none;
+            }
+            92% {
+                text-shadow: 2px 0 #2d5f3f, -2px 0 #ff00ff;
+            }
+            94% {
+                text-shadow: -2px 0 #2d5f3f, 2px 0 #ff00ff;
+            }
+            96% {
+                text-shadow: 2px 0 #2d5f3f, -2px 0 #ff00ff;
+            }
+        }
+
+        /* Story Section */
         .story {
             padding: 8rem 6rem;
             background: #ffffff;
@@ -141,33 +240,42 @@
             margin-bottom: 4rem;
         }
 
-        .story-title {
-            font-size: 1rem;
-            font-weight: 400;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 2rem;
-        }
-
         .story-content {
             max-width: 800px;
             margin: 0 auto 4rem;
             text-align: justify;
-            font-size: 0.95rem;
+            font-size: 1.5rem;
             line-height: 1.9;
             color: #666;
             font-weight: 300;
         }
 
+        /* Scrolling Gallery */
         .story-gallery {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            display: flex;
             gap: 1rem;
-            margin-top: 3rem;
+            overflow: hidden;
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .gallery-track {
+            display: flex;
+            gap: 1rem;
+            animation: scroll 20s linear infinite;
+        }
+
+        .gallery-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .gallery-item {
+            flex: 0 0 250px;
             aspect-ratio: 3/4;
             background: #e8e8e8;
             overflow: hidden;
@@ -178,14 +286,15 @@
             height: 100%;
             object-fit: cover;
             filter: grayscale(100%);
-            transition: filter 0.3s;
+            transition: all 0.5s;
         }
 
         .gallery-item:hover img {
             filter: grayscale(0%);
+            transform: scale(1.05);
         }
 
-        /* Service Section - With Image Separator */
+        /* Service Section with Flip Animation */
         .service-section {
             display: grid;
             grid-template-columns: 1fr 400px 1fr;
@@ -222,6 +331,18 @@
             color: #1a1a1a;
             letter-spacing: -1px;
             line-height: 1.3;
+            animation: flipIn 1.5s ease-out;
+        }
+
+        @keyframes flipIn {
+            0% {
+                transform: rotateY(-90deg);
+                opacity: 0;
+            }
+            100% {
+                transform: rotateY(0);
+                opacity: 1;
+            }
         }
 
         .service-right {
@@ -241,7 +362,31 @@
             justify-content: space-between;
             padding: 1.5rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.2);
-            font-size: 0.85rem;
+            font-size: 1rem;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .service-item:nth-child(1) { animation-delay: 0.1s; }
+        .service-item:nth-child(2) { animation-delay: 0.2s; }
+        .service-item:nth-child(3) { animation-delay: 0.3s; }
+        .service-item:nth-child(4) { animation-delay: 0.4s; }
+        .service-item:nth-child(5) { animation-delay: 0.5s; }
+        .service-item:nth-child(6) { animation-delay: 0.6s; }
+        .service-item:nth-child(7) { animation-delay: 0.7s; }
+        .service-item:nth-child(8) { animation-delay: 0.8s; }
+        .service-item:nth-child(9) { animation-delay: 0.9s; }
+        .service-item:nth-child(10) { animation-delay: 1s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .service-item:last-child {
@@ -294,7 +439,7 @@
             border: 1px solid rgba(255,255,255,0.3);
             color: rgba(255,255,255,0.7);
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 1rem;
             font-weight: 400;
             transition: all 0.3s;
             text-transform: uppercase;
@@ -317,7 +462,7 @@
             font-weight: 500;
             transition: all 0.3s;
             text-transform: uppercase;
-            font-size: 0.75rem;
+            font-size: 1rem;
             letter-spacing: 1px;
             margin-top: 1rem;
             text-align: center;
@@ -325,6 +470,7 @@
 
         .map-btn:hover {
             background: rgba(255,255,255,0.9);
+            transform: translateY(-2px);
         }
 
         .location-right {
@@ -337,6 +483,12 @@
 
         .location-item.active {
             display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .location-image {
@@ -357,6 +509,7 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
+            margin-bottom: 2rem;
         }
 
         .team-member {
@@ -369,6 +522,7 @@
             background: #e8e8e8;
             margin-bottom: 1rem;
             overflow: hidden;
+            border-radius: 10px;
         }
 
         .team-photo img {
@@ -376,6 +530,12 @@
             height: 100%;
             object-fit: cover;
             filter: grayscale(100%);
+            transition: all 0.3s;
+        }
+
+        .team-photo:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.1);
         }
 
         .team-name {
@@ -386,14 +546,18 @@
 
         /* Booking Section */
         .booking-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            background: #ffffff;
-            padding: 6rem 0;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 0;
+            background: #f9f9f9;
         }
 
         .booking-left {
-            padding: 4rem 6rem;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .booking-title {
@@ -405,100 +569,29 @@
             line-height: 1.2;
         }
 
-        .booking-subtitle {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.8;
-            font-weight: 300;
-        }
-
-        .booking-image {
-            width: 100%;
-            height: 100%;
-            background: #e8e8e8;
-            overflow: hidden;
-        }
-
-        .booking-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .booking-right {
-            padding: 4rem 6rem;
-        }
-
-        .booking-form {
-            max-width: 500px;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 0.5rem;
-            font-weight: 400;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem 0;
-            border: none;
-            border-bottom: 1px solid #e0e0e0;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            color: #1a1a1a;
-            background: transparent;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-bottom-color: #2d5f3f;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1.2rem;
+        .apply-btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
             background: #2d5f3f;
             color: white;
-            border: none;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.85rem;
+            text-decoration: none;
             font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
+            font-size: 0.85rem;
             transition: all 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        .submit-btn:hover {
+        .apply-btn:hover {
             background: #234a31;
-        }
-
-        .form-note {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #999;
-            margin-top: 1rem;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         /* Career Section */
         .career {
             padding: 8rem 6rem;
-            background: #f9f9f9;
+            background: #ffffff;
             text-align: center;
         }
 
@@ -521,23 +614,6 @@
             line-height: 1.9;
             margin-bottom: 3rem;
             font-weight: 300;
-        }
-
-        .apply-btn {
-            display: inline-block;
-            padding: 1.2rem 3rem;
-            background: #2d5f3f;
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .apply-btn:hover {
-            background: #234a31;
         }
 
         /* Footer */
@@ -623,28 +699,12 @@
                 display: none;
             }
 
-            .service-left {
-                padding: 4rem 2rem;
-            }
-
-            .service-right {
-                padding: 4rem 2rem;
-            }
-
             .location-section {
                 grid-template-columns: 1fr;
             }
 
             .team-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .booking-section {
-                grid-template-columns: 1fr;
-            }
-
-            .story-gallery {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -659,7 +719,7 @@
                 right: -100%;
                 width: 70%;
                 height: 100vh;
-                background: rgba(255, 255, 255, 0.98);
+                background: rgba(45, 95, 63, 0.98);
                 backdrop-filter: blur(10px);
                 flex-direction: column;
                 justify-content: center;
@@ -673,10 +733,6 @@
                 right: 0;
             }
 
-            .hero-text {
-                padding: 4rem 2rem;
-            }
-
             .hero-text h1 {
                 font-size: 2.5rem;
             }
@@ -685,50 +741,28 @@
                 padding: 4rem 2rem;
             }
 
-            .story-gallery {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .service-left {
-                padding: 4rem 2rem;
-            }
-
-            .service-right {
-                padding: 3rem 2rem;
-            }
-
-            .location-right {
-                padding: 2rem;
-            }
-
             .team-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
             }
 
-            .booking-left {
-                padding: 3rem 2rem;
+            .floating-buttons {
+                bottom: 20px;
+                right: 20px;
             }
 
-            .booking-right {
-                padding: 3rem 2rem;
-            }
-
-            .booking-title {
-                font-size: 2rem;
+            .floating-btn {
+                padding: 0.8rem 1.2rem;
+                font-size: 0.75rem;
+                min-width: 120px;
             }
 
             .footer {
                 padding: 4rem 2rem;
             }
 
-            .footer-title {
-                font-size: 2rem;
-            }
-
             .footer-info {
                 grid-template-columns: 1fr;
-                gap: 2rem;
             }
         }
     </style>
@@ -736,7 +770,11 @@
 <body>
     <!-- Navbar -->
     <nav>
-        <div class="logo">elkap.</div>
+       <div class="logo">
+            <!-- Ganti src dengan path logo kamu -->
+            <img src="assets/ELKAP-TRANSPERANT-WHITE (1).png" alt="Elkap Logo" class="logo-img">
+            
+        </div>
         <div class="hamburger">
             <span></span>
             <span></span>
@@ -746,10 +784,21 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#location">Location</a></li>
-            <li><a href="#book">Book</a></li>
             <li><a href="#career">Career</a></li>
         </ul>
     </nav>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <!-- Ganti dengan link setmore kamu -->
+        <a href="https://setmore.com/your-booking-link" target="_blank" class="floating-btn btn-book">
+            BOOK NOW
+        </a>
+        <!-- Ganti dengan nomor WA kamu (format: 628xxx tanpa +) -->
+        <a href="https://wa.me/6281234567890" target="_blank" class="floating-btn btn-whatsapp">
+            WHATSAPP
+        </a>
+    </div>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
@@ -770,6 +819,7 @@
             <p>Experience premium barbering services delivered by certified professionals. With our passion in the barbering world, we form the foundations of the quality haircut and ultimate grooming experience. Having the certificate of distinction from international academies, we knew we're going to bring something new to the table. In 2015, we established our first shop in the humble neighborhood. Multiple shops then opened in the following years, bringing our signature style and expertise to more communities across the city.</p>
         </div>
         <div class="story-gallery">
+        <div class="gallery-track">
             <div class="gallery-item">
                 <img src="assets/rizki.png" alt="Gallery 1">
             </div>
@@ -785,6 +835,23 @@
             <div class="gallery-item">
                 <img src="assets/andhika.png" alt="Gallery 5">
             </div>
+            <!-- Duplicate untuk infinite scroll -->
+                <div class="gallery-item">
+                    <img src="assets/rizki.png" alt="Gallery 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/dece.png" alt="Gallery 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/reno.png" alt="Gallery 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/iril.png" alt="Gallery 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/andhika.png" alt="Gallery 5">
+                </div>
+        </div>
         </div>
     </section>
 
@@ -844,8 +911,17 @@
 
     <!-- Location Section -->
     <section id="location" class="location-section">
+
+<!--tambahan
+
+  -->
+
+
+
+
         <div class="location-left">
-            <h2 class="location-title">TRUNOJOYO</h2>
+            <h1> LOCATION</h1>
+            <h2 class="location-title"> <br>TRUNOJOYO</h2>
             <div class="location-tabs">
                 <button class="tab-btn active" data-location="trunojoyo">Trunojoyo</button>
                 <button class="tab-btn" data-location="gading">Gading Fajar</button>
@@ -855,6 +931,10 @@
             <a href="https://setmore.com/" target="_blank" class="map-btn">Book Now</a>
         </div>
         <div class="location-right">
+        <div class="location-track">
+   
+  
+        
             <!-- Trunojoyo -->
             <div class="location-item active" id="trunojoyo">
                 <div class="location-image">
@@ -886,7 +966,32 @@
                         <p class="team-name">Iril</p>
                     </div>
                 </div>
+
+                <div class="team-grid">
+                     <div class="team-member">
+                        <div class="team-photo">
+                            <img src="assets/andhika.png" alt="Andhika">
+                        </div>
+                        <p class="team-name">Andhika</p>
+                     </div>
+
+                     <div class="team-member">
+                        <div class="team-photo">
+                            <img src="assets/wawa.png" alt="Wawa">
+                        </div>
+                        <p class="team-name">Wawa</p>
+                     </div>
+                </div>
+
+                      
+                     
+                     
+
+                
             </div>
+                    
+                
+            
 
             <!-- Gading Fajar -->
             <div class="location-item" id="gading">
@@ -902,21 +1007,21 @@
                     </div>
                     <div class="team-member">
                         <div class="team-photo">
-                            <img src="assets/andhika.png" alt="Pepi">
+                            <img src="assets/pepi.png" alt="Pepi">
                         </div>
                         <p class="team-name">Pepi</p>
                     </div>
                     <div class="team-member">
                         <div class="team-photo">
-                            <img src="assets/rizki.png" alt="Anang">
+                            <img src="assets/anang.png" alt="Anang">
                         </div>
                         <p class="team-name">Anang</p>
                     </div>
                     <div class="team-member">
                         <div class="team-photo">
-                            <img src="assets/dece.png" alt="Budi">
+                            <img src="assets/jefri.png" alt="Jefri">
                         </div>
-                        <p class="team-name">Budi</p>
+                        <p class="team-name">Jefri</p>
                     </div>
                 </div>
             </div>
@@ -935,23 +1040,28 @@
                     </div>
                     <div class="team-member">
                         <div class="team-photo">
-                            <img src="assets/louise.png" alt="Jefri">
+                            <img src="assets/jefri.png" alt="Jefri">
                         </div>
                         <p class="team-name">Jefri</p>
                     </div>
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="assets/reno.png" alt="Andi">
-                        </div>
-                        <p class="team-name">Andi</p>
-                    </div>
+                    
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Booking Section -->
-    <section id="book" class="booking-section">
+    <!-- Booking Section
+      <section id="book" class="booking-section">
+        <div class="booking-left">
+            <h2 class="booking-title">Book Now</h2>
+            
+            <a href="https://setmore.com/" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+    </section>
+
+
+     Close Booking Section-->
+    <!--section id="book" class="booking-section">
         <div class="booking-left">
             <h2 class="booking-title">MAKE OUR<br>DAY SPECIAL</h2>
             <p class="booking-subtitle">Let us know if you can celebrate your special day with us.</p>
@@ -985,7 +1095,7 @@
                 <p class="form-note">We can't wait to celebrate with you</p>
             </form>
         </div>
-    </section>
+    </section!-->
 
     <!-- Career Section -->
     <section id="career" class="career">
@@ -996,31 +1106,106 @@
         </div>
     </section>
 
+
+<!-- coba 
+    <section id="coba" class="coba">
+        <div class="luar">
+            <div class="tengah">
+                <div class="dalam">
+               1
+                </div>
+                <div class="dalam">
+              2 
+                </div>
+                <div class="dalam">
+                3
+                </div>
+                <div class="dalam">
+               4
+                </div>
+                <div class="dalam">
+               1
+                </div>
+                <div class="dalam">
+              2 
+                </div>
+                <div class="dalam">
+                3
+                </div>
+                <div class="dalam">
+               4
+                </div>
+            </div>
+        </div> 
+
+        <style>
+
+            .luar{
+                margin: 100px auto;
+                width: 90%;
+                border: 5px solid green;
+                display: flex;
+                overflow-x: auto;
+            }
+
+            .luar:-webkit-scrollbar {
+                display: none;
+            }
+
+            .tengah{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5em;
+            }
+
+            .dalam{
+                flex: 0 0 5em;
+                height: 5em;
+                padding: 1em;
+                background-color: antiquewhite;
+                font-size: 3rem;
+                text-align: center;
+                align-content: center;
+            }
+
+
+        </style>
+
+    
+
+
+    </section> -->
+
+
     <!-- Footer -->
     <footer id="footer" class="footer">
         <div class="footer-content">
-            <h2 class="footer-title">EXCITED TO CELEBRATE<br>OUR DAY WITH YOU</h2>
+            <h2 class="footer-title">EVERY DETAIL. EVERY CUT.<br>DEFINE YOUR QUALITY</h2>
             <div class="footer-image">
                 <img src="assets/elkap architect.jpeg" alt="Footer">
             </div>
             <div class="footer-info">
                 <div class="footer-col">
-                    <h4>Moment + Alex</h4>
-                    <p>July 15th, 2025 | Our wedding</p>
-                    <p>July 16th, 2025 | Blessing ceremony</p>
-                    <p>All at Elkap HQ</p>
+                    <h4>ELKAP BARBERSHOP</h4>
+ 
+                    <p>Premium men’s hair space</p>
+                    <p>focused on modern, Korean-inspired haircuts</p>
+                    <p>and professional chemical services.</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Questions? Reach out!</h4>
-                    <p>We're happy to help with</p>
-                    <p>any questions</p>
-                    <p>Email: hello@elkap.com</p>
+                    <h4>Let’s Talk</h4>
+                    <p>Our team is ready to help you with</p>
+                    <p>appointments, services, or collaborations.</p>
+                    <p>Email: elcapitanocafebarber@gmail.com</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Join Our Team</h4>
-                    <p>We're always looking for</p>
-                    <p>talented barbers</p>
-                    <p>Apply at: careers@elkap.com</p>
+                    <h4>Build Your Career With Us</h4>
+
+
+                    <p>Be part of a modern barbershop culture</p>
+                    <p>that values quality and creativity.</p>
+                    <p>Apply at: antaraglobalinovatif@gmail.com</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -1096,4 +1281,7 @@
         });
     </script>
 </body>
+
+
 </html>
+
