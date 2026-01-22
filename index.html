@@ -19,6 +19,18 @@
             overflow-x: hidden;
         }
 
+        /* Fade on Scroll Animation */
+        .fade-section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Navbar */
         nav {
             position: fixed;
@@ -211,7 +223,6 @@
             letter-spacing: 2px;
             margin-bottom: 2rem;
             position: relative;
-            animation: glitch 5s infinite;
         }
 
         @keyframes glitch {
@@ -243,11 +254,12 @@
         .story-content {
             max-width: 800px;
             margin: 0 auto 4rem;
-            text-align: justify;
-            font-size: 1.5rem;
-            line-height: 1.9;
+            text-align: left;
+            font-size: 1.2rem;
+            line-height: 1.6;
             color: #666;
             font-weight: 300;
+            letter-spacing: -.36px;
         }
 
         /* Scrolling Gallery */
@@ -358,13 +370,18 @@
         }
 
         .service-item {
-            display: flex;
-            justify-content: space-between;
             padding: 1.5rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.2);
             font-size: 1rem;
             opacity: 0;
             animation: fadeInUp 0.6s ease-out forwards;
+            cursor: pointer;
+            transition: background 0.3s, padding 0.3s;
+        }
+
+        .service-item:hover {
+            background: rgba(255,255,255,0.05);
+            padding-left: 1rem;
         }
 
         .service-item:nth-child(1) { animation-delay: 0.1s; }
@@ -393,123 +410,196 @@
             border-bottom: none;
         }
 
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .service-name {
             font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            position: relative;
+        }
+
+        .service-name::after {
+            content: '+';
+            margin-left: 1rem;
+            font-size: 1.4rem;
+            font-weight: 300;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        .service-item.active .service-name::after {
+            transform: rotate(45deg);
         }
 
         .service-price {
             font-weight: 500;
         }
 
-        /* Location Section */
-        .location-section {
-            display: grid;
-            grid-template-columns: 400px 1fr;
-            background: #ffffff;
-        }
-
-        .location-left {
-            background: #2d5f3f;
-            padding: 4rem 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            color: white;
-        }
-
-        .location-title {
-            font-size: 2rem;
-            font-weight: 400;
-            margin-bottom: 2rem;
-            letter-spacing: -0.5px;
-        }
-
-        .location-tabs {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            margin-bottom: 2rem;
-        }
-
-        .tab-btn {
-            padding: 0.8rem 1.5rem;
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.3);
+        .service-description {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out, opacity 0.4s ease-out;
+            padding: 0;
+            font-size: 0.85rem;
             color: rgba(255,255,255,0.7);
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 400;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            text-align: left;
+            line-height: 1.6;
+            opacity: 0;
         }
 
-        .tab-btn.active {
-            background: white;
-            color: #2d5f3f;
-            border-color: white;
+        .service-item.active .service-description {
+            max-height: 200px;
+            padding: 1rem 0 0.5rem 0;
+            opacity: 1;
         }
 
-        .map-btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background: white;
-            color: #2d5f3f;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            margin-top: 1rem;
+        /* Location Section - Full Width */
+        .location-section {
+            background: #ffffff;
+            padding: 8rem 0;
+        }
+
+        .location-header {
             text-align: center;
+            margin-bottom: 4rem;
+            padding: 0 2rem;
         }
 
-        .map-btn:hover {
-            background: rgba(255,255,255,0.9);
-            transform: translateY(-2px);
+        .location-header h1 {
+            font-size: 3.5rem;
+            font-weight: 400;
+            letter-spacing: -2px;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
         }
 
-        .location-right {
-            padding: 4rem;
+        .location-header p {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 300;
         }
 
-        .location-item {
-            display: none;
+        /* Carousel Container */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
         }
 
-        .location-item.active {
-            display: block;
-            animation: fadeIn 0.5s ease-out;
+        .carousel-wrapper {
+            overflow: hidden;
+            cursor: grab;
+            user-select: none;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .carousel-wrapper.grabbing {
+            cursor: grabbing;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .carousel-track.no-transition {
+            transition: none;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            padding: 0 5%;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Location Card - No Box */
+        .location-title-badge {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .location-title-badge h2 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: #2d5f3f;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
         .location-image {
             width: 100%;
-            height: 300px;
+            height: 450px;
             background: #e8e8e8;
-            margin-bottom: 3rem;
             overflow: hidden;
+            margin-bottom: 3rem;
         }
 
         .location-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .location-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .location-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .detail-item {
+            padding: 1.5rem;
+            background: #f9f9f9;
+        }
+
+        .detail-item strong {
+            display: block;
+            color: #2d5f3f;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-item span {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Team Grid */
+        .team-section {
+            margin-bottom: 3rem;
+        }
+
+        .team-section h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+            text-align: center;
+            letter-spacing: -0.5px;
         }
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 2rem;
-            margin-bottom: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .team-member {
@@ -522,7 +612,7 @@
             background: #e8e8e8;
             margin-bottom: 1rem;
             overflow: hidden;
-            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
         .team-photo img {
@@ -530,7 +620,7 @@
             height: 100%;
             object-fit: cover;
             filter: grayscale(100%);
-            transition: all 0.3s;
+            transition: all 0.4s;
         }
 
         .team-photo:hover img {
@@ -539,9 +629,131 @@
         }
 
         .team-name {
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 500;
             color: #1a1a1a;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .action-btn {
+            padding: 1.2rem 3rem;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .btn-maps {
+            background: #2d5f3f;
+            color: white;
+        }
+
+        .btn-maps:hover {
+            background: #234a31;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(45, 95, 63, 0.3);
+        }
+
+        .btn-book {
+            background: white;
+            color: #2d5f3f;
+            border: 2px solid #2d5f3f;
+        }
+
+        .btn-book:hover {
+            background: #2d5f3f;
+            color: white;
+        }
+
+        /* Navigation Arrows - Minimalist */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2rem;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .nav-arrow {
+            pointer-events: all;
+            background: rgba(45, 95, 63, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-arrow:hover {
+            background: #2d5f3f;
+            transform: scale(1.1);
+        }
+
+        .nav-arrow:disabled {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Dots Indicator - Minimalist */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 3rem 0 0 0;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+        .dot.active {
+            background: #2d5f3f;
+            width: 50px;
+            border-radius: 5px;
+        }
+
+        .dot:hover {
+            background: #a0a0a0;
+        }
+
+        /* Progress Bar for Auto-play */
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: #2d5f3f;
+            width: 0;
+            transition: width 8s linear;
+        }
+
+        .progress-bar.active {
+            width: 100%;
         }
 
         /* Booking Section */
@@ -699,8 +911,13 @@
                 display: none;
             }
 
-            .location-section {
+            .location-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .location-details {
                 grid-template-columns: 1fr;
+                gap: 1rem;
             }
 
             .team-grid {
@@ -741,9 +958,39 @@
                 padding: 4rem 2rem;
             }
 
+            .location-section {
+                padding: 4rem 0;
+            }
+
+            .location-header h1 {
+                font-size: 2rem;
+            }
+
+            .carousel-slide {
+                padding: 0 1rem;
+            }
+
+            .location-image {
+                height: 300px;
+            }
+
             .team-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .nav-arrow {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+
+            .carousel-nav {
+                padding: 0 1rem;
             }
 
             .floating-buttons {
@@ -771,9 +1018,7 @@
     <!-- Navbar -->
     <nav>
        <div class="logo">
-            <!-- Ganti src dengan path logo kamu -->
             <img src="assets/ELKAP-TRANSPERANT-WHITE (1).png" alt="Elkap Logo" class="logo-img">
-            
         </div>
         <div class="hamburger">
             <span></span>
@@ -790,319 +1035,386 @@
 
     <!-- Floating Buttons -->
     <div class="floating-buttons">
-        <!-- Ganti dengan link setmore kamu -->
-        <a href="https://elkapxmori.setmore.com/?utm_source=ig&
-            utm_medium=social&utm_content=link_in_bio&fbclid=
-            PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnP6ACFtClVQ6vCQs1a_81JvuFbHLpVRLi
-            rQcW5sdZEnMXnnviHJXcSbLhd70_
-            aem_1nJx3YB-sJE9hVT-vZdryQ#services" target="_blank" class="floating-btn btn-book">
+        <a href="https://setmore.com/your-booking-link" target="_blank" class="floating-btn btn-book">
             BOOK NOW
         </a>
-        <!-- Ganti dengan nomor WA kamu (format: 628xxx tanpa +) -->
-        <a href="https://wa.me/62895801663400" target="_blank" class="floating-btn btn-whatsapp">
+        <a href="https://wa.me/6281234567890" target="_blank" class="floating-btn btn-whatsapp">
             WHATSAPP
         </a>
     </div>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <section id="home" class="hero fade-section">
         <div class="hero-image">
-            <img src="assets/elkap front.png" alt="Elkap Barbershop">
+            <img src="assets/int/KAP09326_edit.JPG" alt="Elkap Barbershop">
         </div>
         <div class="hero-text">
-            <h1>NUMBER 1<br>BARBER<br>IN SIDOARJO<br>CITY</h1>
+            <h1>A MODERN HAIRSPACE<br>CRAFTED FOR<br>YOUR<br> BEST VERSION</h1>
+
+            
         </div>
     </section>
 
     <!-- Our Story Section -->
-    <section class="story">
+    <section class="story fade-section">
         <div class="story-header">
             <div class="story-title">OUR STORY</div>
         </div>
         <div class="story-content">
-            <p>Experience premium barbering services delivered by certified professionals. With our passion in the barbering world, we form the foundations of the quality haircut and ultimate grooming experience. Having the certificate of distinction from international academies, we knew we're going to bring something new to the table. In 2015, we established our first shop in the humble neighborhood. Multiple shops then opened in the following years, bringing our signature style and expertise to more communities across the city.</p>
+            <p>Is a space designed with modern concept.
+Offering different atmosphere for people enjoying haircut.
+Build with inovation, passion, and creativity for every corner.
+Our place will create warmth and memories for everyone.
+
+Combining our years experience and expertise barber since 2015. We believe that quality had being foundation in our place. Create a good haircut for every valuable moment and share happiness through hair cut is our priority. 
+Have a seat, look at the mirror, trust us, and enjoy…</p>
         </div>
         <div class="story-gallery">
-        <div class="gallery-track">
-            <div class="gallery-item">
-                <img src="assets/rizki.png" alt="Gallery 1">
-            </div>
-            <div class="gallery-item">
-                <img src="assets/dece.png" alt="Gallery 2">
-            </div>
-            <div class="gallery-item">
-                <img src="assets/reno.png" alt="Gallery 3">
-            </div>
-            <div class="gallery-item">
-                <img src="assets/iril.png" alt="Gallery 4">
-            </div>
-            <div class="gallery-item">
-                <img src="assets/andhika.png" alt="Gallery 5">
-            </div>
-            <!-- Duplicate untuk infinite scroll -->
+            <div class="gallery-track">
                 <div class="gallery-item">
-                    <img src="assets/rizki.png" alt="Gallery 1">
+                    <img src="assets/int/KAP00310.JPG" alt="Gallery 1">
                 </div>
                 <div class="gallery-item">
-                    <img src="assets/dece.png" alt="Gallery 2">
+                    <img src="assets/int/KAP00456.JPG" alt="Gallery 2">
                 </div>
                 <div class="gallery-item">
-                    <img src="assets/reno.png" alt="Gallery 3">
+                    <img src="assets/int/KAP09326.JPG" alt="Gallery 3">
                 </div>
                 <div class="gallery-item">
-                    <img src="assets/iril.png" alt="Gallery 4">
+                    <img src="assets/int/KAP09380.JPG" alt="Gallery 4">
                 </div>
                 <div class="gallery-item">
-                    <img src="assets/andhika.png" alt="Gallery 5">
+                    <img src="assets/int/KAP09388.JPG" alt="Gallery 5">
                 </div>
-        </div>
+                <!-- Duplicate untuk infinite scroll -->
+                <div class="gallery-item">
+                    <img src="assets/int/KAP00310.JPG" alt="Gallery 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/int/KAP00456.JPG" alt="Gallery 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/int/KAP09326.JPG" alt="Gallery 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/int/KAP09380.JPG" alt="Gallery 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/int/KAP09388.JPG" alt="Gallery 5">
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Service Section -->
-    <section id="services" class="service-section">
+    <section id="services" class="service-section fade-section">
         <div class="service-left">
             <h2 class="service-title">SERVICE<br>& PRICE LIST</h2>
         </div>
         <div class="service-separator">
-            <img src="assets/elkap front.png" alt="Separator">
+            <img src="assets/hairfootage-1.png" alt="Separator">
         </div>
         <div class="service-right">
             <div class="service-list">
                 <div class="service-item">
-                    <span class="service-name">Haircut</span>
-                    <span class="service-price">75K</span>
+                    <div class="service-header">
+                        <span class="service-name">Haircut</span>
+                        <span class="service-price">75K</span>
+                    </div>
+                    <div class="service-description">
+                        Precision haircut with modern styling. Includes consultation, wash, cut, and styling with premium products.
+                    </div>
                 </div>
                 <div class="service-item">
-                    <span class="service-name">Student Haircut</span>
-                    <span class="service-price">65K</span>
+                    <div class="service-header">
+                        <span class="service-name">Student Haircut</span>
+                        <span class="service-price">65K</span>
+                    </div>
+                    <div class="service-description">
+                        Special price for students. Same quality service with valid student ID. Modern cuts for the young generation.
+                    </div>
                 </div>
                 <div class="service-item">
-                    <span class="service-name">Down Perm</span>
-                    <span class="service-price">150K</span>
+                    <div class="service-header">
+                        <span class="service-name">Down Perm</span>
+                        <span class="service-price">150K</span>
+                    </div>
+                    <div class="service-description">
+                        Natural wave perm that creates relaxed, flowing movement. Perfect for adding texture and volume.
+                    </div>
                 </div>
                 <div class="service-item">
-                    <span class="service-name">Root Lift</span>
-                    <span class="service-price">150K</span>
+                    <div class="service-header">
+                        <span class="service-name">Root Lift</span>
+                        <span class="service-price">150K</span>
+                    </div>
+                    <div class="service-description">
+                        Adds volume at the roots for a lifted, fuller look. Ideal for fine or flat hair types.
+                    </div>
                 </div>
                 <div class="service-item">
-                    <span class="service-name">Creative Perm</span>
-                    <span class="service-price">375K</span>
+                    <div class="service-header">
+                        <span class="service-name">Creative Perm</span>
+                        <span class="service-price">375K</span>
+                    </div>
+                    <div class="service-description">
+                        Artistic perm styling with custom curl patterns. Korean-inspired wave techniques for unique looks.
+                    </div>
                 </div>
                 <div class="service-item">
-                    <span class="service-name">Design Perm</span>
-                    <span class="service-price">375K</span>
+                    <div class="service-header">
+                        <span class="service-name">Design Perm</span>
+                        <span class="service-price">375K</span>
+                    </div>
+                    <div class="service-description">
+                        Specialized perm with precise curl placement. Create dimension and movement in your hairstyle.
+                    </div>
                 </div>
                 <div class="service-item">
-                    <span class="service-name">Keratin & Smooth</span>
-                    <span class="service-price">325K</span>
+                    <div class="service-header">
+                        <span class="service-name">Keratin & Smooth</span>
+                        <span class="service-price">325K</span>
+                    </div>
+                    <div class="service-description">
+                        Professional keratin treatment for smooth, frizz-free hair. Long-lasting results with healthy shine.
+                    </div>
                 </div>
                 <div class="service-item">
-                    <span class="service-name">High Light Color</span>
-                    <span class="service-price">400K</span>
+                    <div class="service-header">
+                        <span class="service-name">High Light Color</span>
+                        <span class="service-price">400K</span>
+                    </div>
+                    <div class="service-description">
+                        Strategic highlights to add dimension. Natural-looking color depth with premium products.
+                    </div>
                 </div>
                 <div class="service-item">
-                    <span class="service-name">Creative Color</span>
-                    <span class="service-price">600K</span>
+                    <div class="service-header">
+                        <span class="service-name">Creative Color</span>
+                        <span class="service-price">600K</span>
+                    </div>
+                    <div class="service-description">
+                        Full creative coloring service. Bold or subtle, we bring your color vision to life.
+                    </div>
                 </div>
                 <div class="service-item">
-                    <span class="service-name">Soft & Smooth</span>
-                    <span class="service-price">200K</span>
+                    <div class="service-header">
+                        <span class="service-name">Soft & Smooth</span>
+                        <span class="service-price">200K</span>
+                    </div>
+                    <div class="service-description">
+                        Smoothing treatment for manageable, silky hair. Perfect for reducing volume and taming curls.
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Location Section -->
-    <section id="location" class="location-section">
-
-<!--tambahan
-
-  -->
-
-
-
-
-        <div class="location-left">
-            <h1> LOCATION</h1>
-            <h2 class="location-title"> <br>TRUNOJOYO</h2>
-            <div class="location-tabs">
-                <button class="tab-btn active" data-location="trunojoyo">Trunojoyo</button>
-                <button class="tab-btn" data-location="gading">Gading Fajar</button>
-                <button class="tab-btn" data-location="surabaya">Surabaya</button>
-            </div>
-            <a href="https://maps.app.goo.gl/nx2Xnu53PUvYCSp48" target="_blank" class="map-btn">Google Maps</a>
-            <a href="https://setmore.com/" target="_blank" class="map-btn">Book Now</a>
+    <div class="location-section fade-section" id="location">
+        <div class="location-header">
+            <h1>OUR LOCATIONS</h1>
+            <p>Visit us at any of our premium barbershop locations</p>
         </div>
-        <div class="location-right">
-        <div class="location-track">
-   
-  
-        
-            <!-- Trunojoyo -->
-            <div class="location-item active" id="trunojoyo">
-                <div class="location-image">
-                    <img src="assets/elkap front.png" alt="Trunojoyo Location">
-                </div>
-                <div class="team-grid">
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="assets/rizki.png" alt="Rizki">
-                        </div>
-                        <p class="team-name">Rizki</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="assets/dece.png" alt="Dece">
-                        </div>
-                        <p class="team-name">Dece</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="assets/reno.png" alt="Reno">
-                        </div>
-                        <p class="team-name">Reno</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="assets/iril.png" alt="Iril">
-                        </div>
-                        <p class="team-name">Iril</p>
-                    </div>
-                </div>
 
-                <div class="team-grid">
-                     <div class="team-member">
-                        <div class="team-photo">
-                            <img src="assets/andhika.png" alt="Andhika">
-                        </div>
-                        <p class="team-name">Andhika</p>
-                     </div>
-
-                     <div class="team-member">
-                        <div class="team-photo">
-                            <img src="assets/wawa.png" alt="Wawa">
-                        </div>
-                        <p class="team-name">Wawa</p>
-                     </div>
-                </div>
-
-                      
-                     
-                     
-
-                
-            </div>
+        <div class="carousel-container">
+            <div class="carousel-wrapper" id="carouselWrapper">
+                <div class="carousel-track" id="carouselTrack">
                     
-                
-            
+                    <!-- Slide 1: Trunojoyo -->
+                    <div class="carousel-slide">
+                        <div class="slide-content">
+                            <div class="location-title-badge">
+                                <h2>TRUNOJOYO</h2>
+                            </div>
+                            <div class="location-image">
+                                <img src="assets/int/loc-trunojoyo.png" alt="Trunojoyo Location">
+                            </div>
+                            <div class="location-details">
+                                <div class="detail-item">
+                                    <strong>Address</strong>
+                                    <span>Jl. Trunojoyo No. 27<br>Sidoarjo</span>
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Hours</strong>
+                                    <span>Monday - Sunday<br>09:00 - 21:00</span>
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Phone</strong>
+                                    <span>+62 895-8016-63400</span>
+                                </div>
+                            </div>
+                            <div class="team-section">
+                                <h3>Our Professional Team</h3>
+                                <div class="team-grid">
+                                    <div class="team-member">
+                                        <div class="team-photo">
+                                            <img src="assets/rizki.png" alt="Rizki">
+                                        </div>
+                                        <p class="team-name">Rizki</p>
+                                    </div>
+                                    <div class="team-member">
+                                        <div class="team-photo">
+                                            <img src="assets/dece.png" alt="Dece">
+                                        </div>
+                                        <p class="team-name">Dece</p>
+                                    </div>
+                                    <div class="team-member">
+                                        <div class="team-photo">
+                                            <img src="assets/reno.png" alt="Reno">
+                                        </div>
+                                        <p class="team-name">Reno</p>
+                                    </div>
+                                    <div class="team-member">
+                                        <div class="team-photo">
+                                            <img src="assets/iril.png" alt="Iril">
+                                        </div>
+                                        <p class="team-name">Iril</p>
+                                    </div>
+                                    <div class="team-member">
+                                        <div class="team-photo">
+                                            <img src="assets/andhika.png" alt="Andhika">
+                                        </div>
+                                        <p class="team-name">Andhika</p>
+                                    </div>
+                                    <div class="team-member">
+                                        <div class="team-photo">
+                                            <img src="assets/wawa.png" alt="Wawa">
+                                        </div>
+                                        <p class="team-name">Wawa</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="action-buttons">
+                                <a href="https://maps.google.com/" target="_blank" class="action-btn btn-maps">View on Maps</a>
+                                <a href="https://setmore.com/" target="_blank" class="action-btn btn-book">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- Gading Fajar -->
-            <div class="location-item" id="gading">
-                <div class="location-image">
-                    <img src="assets/elkap front.png" alt="Gading Fajar Location">
+                    <!-- Slide 2: Gading Fajar -->
+                    <div class="carousel-slide">
+                        <div class="slide-content">
+                            <div class="location-title-badge">
+                                <h2>GADING FAJAR</h2>
+                            </div>
+                            <div class="location-image">
+                                <img src="assets/int/loc-gading.png" alt="Gading Fajar Location">
+                            </div>
+                            <div class="location-details">
+                                <div class="detail-item">
+                                    <strong>Address</strong>
+                                    <span>Jl. Sidokare Asri Block BA-03<br>Sidoarjo</span>
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Hours</strong>
+                                    <span>Monday - Sunday<br>09:00 - 21:00</span>
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Phone</strong>
+                                    <span>+62 895-8016-63400</span>
+                                </div>
+                            </div>
+                            <div class="team-section">
+                                <h3>Our Professional Team</h3>
+                                <div class="team-grid">
+                                    <div class="team-member">
+                                        <div class="team-photo">
+                                            <img src="assets/louise.png" alt="Louise">
+                                        </div>
+                                        <p class="team-name">Louise</p>
+                                    </div>
+                                    <div class="team-member">
+                                        <div class="team-photo">
+                                            <img src="assets/pepi.png" alt="Pepi">
+                                        </div>
+                                        <p class="team-name">Pepi</p>
+                                    </div>
+                                    <div class="team-member">
+                                        <div class="team-photo">
+                                            <img src="assets/anang.png" alt="Anang">
+                                        </div>
+                                        <p class="team-name">Anang</p>
+                                    </div>
+                                    <div class="team-member">
+                                        <div class="team-photo">
+                                            <img src="assets/jefri.png" alt="Jefri">
+                                        </div>
+                                        <p class="team-name">Jefri</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="action-buttons">
+                                <a href="https://maps.google.com/" target="_blank" class="action-btn btn-maps">View on Maps</a>
+                                <a href="https://setmore.com/" target="_blank" class="action-btn btn-book">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Surabaya -->
+                    <div class="carousel-slide">
+                        <div class="slide-content">
+                            <div class="location-title-badge">
+                                <h2>SURABAYA</h2>
+                            </div>
+                            <div class="location-image">
+                                <img src="assets/int/loc-sub.png" alt="Surabaya Location">
+                            </div>
+                            <div class="location-details">
+                                <div class="detail-item">
+                                    <strong>Address</strong>
+                                    <span>Jl. Raya Surabaya No. 789<br>Surabaya</span>
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Hours</strong>
+                                    <span>Monday - Sunday<br>09:00 - 21:00</span>
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Phone</strong>
+                                    <span>+62 895-8016-63400</span>
+                                </div>
+                            </div>
+                            <div class="team-section">
+                                <h3>Our Professional Team</h3>
+                                <div class="team-grid">
+                                    <div class="team-member">
+                                        <div class="team-photo">
+                                            <img src="assets/wawa.png" alt="Wawa">
+                                        </div>
+                                        <p class="team-name">Wawa</p>
+                                    </div>
+                                    <div class="team-member">
+                                        <div class="team-photo">
+                                            <img src="assets/jefri.png" alt="Jefri">
+                                        </div>
+                                        <p class="team-name">Jefri</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="action-buttons">
+                                <a href="https://maps.google.com/" target="_blank" class="action-btn btn-maps">View on Maps</a>
+                                <a href="https://setmore.com/" target="_blank" class="action-btn btn-book">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="team-grid">
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="assets/louise.png" alt="Louise">
-                        </div>
-                        <p class="team-name">Louise</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="assets/pepi.png" alt="Pepi">
-                        </div>
-                        <p class="team-name">Pepi</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="assets/anang.png" alt="Anang">
-                        </div>
-                        <p class="team-name">Anang</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="assets/jefri.png" alt="Jefri">
-                        </div>
-                        <p class="team-name">Jefri</p>
-                    </div>
-                </div>
+                <div class="progress-bar" id="progressBar"></div>
             </div>
 
-            <!-- Surabaya -->
-            <div class="location-item" id="surabaya">
-                <div class="location-image">
-                    <img src="assets/elkap front.png" alt="Surabaya Location">
-                </div>
-                <div class="team-grid">
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="assets/wawa.png" alt="Wawa">
-                        </div>
-                        <p class="team-name">Wawa</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="assets/jefri.png" alt="Jefri">
-                        </div>
-                        <p class="team-name">Jefri</p>
-                    </div>
-                    
-                </div>
+            <!-- Navigation Arrows -->
+            <div class="carousel-nav">
+                <button class="nav-arrow" id="prevBtn">‹</button>
+                <button class="nav-arrow" id="nextBtn">›</button>
             </div>
         </div>
-    </section>
 
-    <!-- Booking Section
-      <section id="book" class="booking-section">
-        <div class="booking-left">
-            <h2 class="booking-title">Book Now</h2>
-            
-            <a href="https://setmore.com/" target="_blank" class="apply-btn">Apply Now</a>
-        </div>
-    </section>
-
-
-     Close Booking Section-->
-    <!--section id="book" class="booking-section">
-        <div class="booking-left">
-            <h2 class="booking-title">MAKE OUR<br>DAY SPECIAL</h2>
-            <p class="booking-subtitle">Let us know if you can celebrate your special day with us.</p>
-            <div class="booking-image" style="margin-top: 2rem; height: 300px;">
-                <img src="assets/elkap architect.jpeg" alt="Booking">
-            </div>
-        </div>
-        <div class="booking-right">
-            <form class="booking-form" onsubmit="return false;">
-                <div class="form-group">
-                    <label>Your name</label>
-                    <input type="text" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label>Are you coming?</label>
-                    <input type="text" placeholder="Absolutely, wouldn't miss it!">
-                </div>
-                <div class="form-group">
-                    <label>Safely confirm names if</label>
-                    <input type="text" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label>Let us know if you have any dietary restrictions.</label>
-                    <textarea placeholder=""></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Nominate a song for our playlist!</label>
-                    <input type="text" placeholder="">
-                </div>
-                <button type="submit" class="submit-btn">RSVP Now</button>
-                <p class="form-note">We can't wait to celebrate with you</p>
-            </form>
-        </div>
-    </section!-->
+        <!-- Dots Indicator -->
+        <div class="carousel-dots" id="carouselDots"></div>
+    </div>
 
     <!-- Career Section -->
-    <section id="career" class="career">
+    <section id="career" class="career fade-section">
         <div class="career-content">
             <h2 class="career-title">Join Our Team</h2>
             <p>We're always looking for talented barbers who share our passion for excellence. Join our team and be part of a community that values craftsmanship, creativity, and professional growth. Experience a workplace where your skills are appreciated and your career can flourish.</p>
@@ -1110,80 +1422,8 @@
         </div>
     </section>
 
-
-<!-- coba 
-    <section id="coba" class="coba">
-        <div class="luar">
-            <div class="tengah">
-                <div class="dalam">
-               1
-                </div>
-                <div class="dalam">
-              2 
-                </div>
-                <div class="dalam">
-                3
-                </div>
-                <div class="dalam">
-               4
-                </div>
-                <div class="dalam">
-               1
-                </div>
-                <div class="dalam">
-              2 
-                </div>
-                <div class="dalam">
-                3
-                </div>
-                <div class="dalam">
-               4
-                </div>
-            </div>
-        </div> 
-
-        <style>
-
-            .luar{
-                margin: 100px auto;
-                width: 90%;
-                border: 5px solid green;
-                display: flex;
-                overflow-x: auto;
-            }
-
-            .luar:-webkit-scrollbar {
-                display: none;
-            }
-
-            .tengah{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 5em;
-            }
-
-            .dalam{
-                flex: 0 0 5em;
-                height: 5em;
-                padding: 1em;
-                background-color: antiquewhite;
-                font-size: 3rem;
-                text-align: center;
-                align-content: center;
-            }
-
-
-        </style>
-
-    
-
-
-    </section> -->
-
-
     <!-- Footer -->
-    <footer id="footer" class="footer">
+    <footer id="footer" class="footer fade-section">
         <div class="footer-content">
             <h2 class="footer-title">EVERY DETAIL. EVERY CUT.<br>DEFINE YOUR QUALITY</h2>
             <div class="footer-image">
@@ -1192,21 +1432,18 @@
             <div class="footer-info">
                 <div class="footer-col">
                     <h4>ELKAP BARBERSHOP</h4>
- 
-                    <p>Premium men’s hair space</p>
+                    <p>Premium men's hair space</p>
                     <p>focused on modern, Korean-inspired haircuts</p>
                     <p>and professional chemical services.</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Let’s Talk</h4>
+                    <h4>Let's Talk</h4>
                     <p>Our team is ready to help you with</p>
                     <p>appointments, services, or collaborations.</p>
                     <p>Email: elcapitanocafebarber@gmail.com</p>
                 </div>
                 <div class="footer-col">
                     <h4>Build Your Career With Us</h4>
-
-
                     <p>Be part of a modern barbershop culture</p>
                     <p>that values quality and creativity.</p>
                     <p>Apply at: antaraglobalinovatif@gmail.com</p>
@@ -1219,6 +1456,7 @@
     </footer>
 
     <script>
+        // Hamburger Menu
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
         const navItems = document.querySelectorAll('.nav-links a');
@@ -1242,6 +1480,7 @@
             }
         });
 
+        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1255,38 +1494,232 @@
             });
         });
 
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const locationItems = document.querySelectorAll('.location-item');
-        const locationTitle = document.querySelector('.location-title');
+        // Carousel for Location Section
+        const wrapper = document.getElementById('carouselWrapper');
+        const track = document.getElementById('carouselTrack');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dotsContainer = document.getElementById('carouselDots');
+        const progressBar = document.getElementById('progressBar');
+        
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        let isDragging = false;
+        let startPos = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+        let animationID;
+        let autoPlayInterval;
 
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const location = btn.dataset.location;
-                
-                tabBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                locationItems.forEach(item => {
-                    item.classList.remove('active');
-                    if (item.id === location) {
-                        item.classList.add('active');
-                    }
-                });
+        // Create dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                goToSlide(i);
+                resetAutoPlay();
+            });
+            dotsContainer.appendChild(dot);
+        }
 
-                // Update title based on location
-                if (location === 'trunojoyo') {
-                    locationTitle.textContent = 'TRUNOJOYO';
-                } else if (location === 'gading') {
-                    locationTitle.textContent = 'GADING FAJAR';
-                } else if (location === 'surabaya') {
-                    locationTitle.textContent = 'SURABAYA';
+        const dots = document.querySelectorAll('.dot');
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+            } else {
+                currentSlide = 0;
+            }
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateCarousel();
+            }
+        }
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(() => {
+                nextSlide();
+                startProgress();
+            }, 8000);
+        }
+
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+            stopProgress();
+        }
+
+        function resetAutoPlay() {
+            stopAutoPlay();
+            startAutoPlay();
+            startProgress();
+        }
+
+        function startProgress() {
+            progressBar.classList.remove('active');
+            void progressBar.offsetWidth;
+            progressBar.classList.add('active');
+        }
+
+        function stopProgress() {
+            progressBar.classList.remove('active');
+        }
+
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetAutoPlay();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetAutoPlay();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+                resetAutoPlay();
+            }
+            if (e.key === 'ArrowRight') {
+                nextSlide();
+                resetAutoPlay();
+            }
+        });
+
+        function getPositionX(event) {
+            return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+        }
+
+        function dragStart(event) {
+            if (event.type === 'mousedown') {
+                event.preventDefault();
+            }
+            isDragging = true;
+            startPos = getPositionX(event);
+            animationID = requestAnimationFrame(animation);
+            wrapper.classList.add('grabbing');
+            stopAutoPlay();
+        }
+
+        function dragMove(event) {
+            if (isDragging) {
+                const currentPosition = getPositionX(event);
+                currentTranslate = prevTranslate + currentPosition - startPos;
+            }
+        }
+
+        function dragEnd() {
+            isDragging = false;
+            cancelAnimationFrame(animationID);
+            wrapper.classList.remove('grabbing');
+
+            const movedBy = currentTranslate - prevTranslate;
+
+            if (movedBy < -50 && currentSlide < totalSlides - 1) {
+                currentSlide++;
+            }
+
+            if (movedBy > 50 && currentSlide > 0) {
+                currentSlide--;
+            }
+
+            setPositionByIndex();
+            resetAutoPlay();
+        }
+
+        function animation() {
+            setSliderPosition();
+            if (isDragging) requestAnimationFrame(animation);
+        }
+
+        function setSliderPosition() {
+            track.style.transform = `translateX(${currentTranslate}px)`;
+        }
+
+        function setPositionByIndex() {
+            currentTranslate = currentSlide * -window.innerWidth;
+            prevTranslate = currentTranslate;
+            updateCarousel();
+        }
+
+        wrapper.addEventListener('mousedown', dragStart);
+        wrapper.addEventListener('mousemove', dragMove);
+        wrapper.addEventListener('mouseup', dragEnd);
+        wrapper.addEventListener('mouseleave', dragEnd);
+
+        wrapper.addEventListener('touchstart', dragStart);
+        wrapper.addEventListener('touchmove', dragMove);
+        wrapper.addEventListener('touchend', dragEnd);
+
+        wrapper.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        updateCarousel();
+        startAutoPlay();
+        startProgress();
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                stopAutoPlay();
+            } else {
+                resetAutoPlay();
+            }
+        });
+
+        // Fade on Scroll Observer
+        const fadeElements = document.querySelectorAll('.fade-section');
+        
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeElements.forEach(element => {
+            fadeObserver.observe(element);
+        });
+
+        // Service Item Accordion
+        const serviceItems = document.querySelectorAll('.service-item');
+        
+        serviceItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const wasActive = item.classList.contains('active');
+                
+                serviceItems.forEach(i => i.classList.remove('active'));
+                
+                if (!wasActive) {
+                    item.classList.add('active');
                 }
             });
         });
     </script>
 </body>
-
-
 </html>
-
-
